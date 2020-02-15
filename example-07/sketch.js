@@ -1,13 +1,13 @@
 let synth;
-let notas = ["C", "D", "E", "F", "G", "A", "B"];
+let notes = ["C", "D", "E", "F", "G", "A", "B"];
 let colores = [0, 20, 40, 90, 130, 170, 210];
-let octavas = ["2", "3", "4", "5", "6", "7"];
+let octaves = ["2", "3", "4", "5", "6", "7"];
 let tonos = [105, 135, 165, 195, 225, 255];
 let divX;
 let divY;
 let oldIsPressed = false;
 let isPressed = false;
-let oldNotaOctava = "";
+let oldnoteoctave = "";
 let ellipseWidthMin = 15;
 let ellipseWidthMax = 150;
 let ellipseWidth = ellipseWidthMin;
@@ -17,8 +17,8 @@ function setup() {
   let width = window.innerWidth;
   let height = window.innerHeight;
   canvas = createCanvas(width, height);
-  divX = width / notas.length;
-  divY = height / octavas.length;
+  divX = width / notes.length;
+  divY = height / octaves.length;
   for (i = 0; i < 8; i++) {
     line(0, divY * i, width, divY * i);
     line(divX * i, 0, divX * i, height);
@@ -35,9 +35,9 @@ function draw() {
 
   if (isPressed) {
 
-    let nota = Math.round((mouseX + (divX / 2)) / divX) - 1
-    let octava = Math.round((mouseY + (divY / 2)) / divY) - 1;
-    fill(colores[nota], 127, tonos[octava]);
+    let note = Math.round((mouseX + (divX / 2)) / divX) - 1
+    let octave = Math.round((mouseY + (divY / 2)) / divY) - 1;
+    fill(colores[note], 127, tonos[octave]);
 
     if (ellipseWidth < ellipseWidthMax) {
       ellipseWidth++;
@@ -45,18 +45,18 @@ function draw() {
 
     ellipse(mouseX, mouseY, ellipseWidth, ellipseWidth);
 
-    let newNotaOctava = notas[nota] + octavas[octava];
+    let newnoteoctave = notes[note] + octaves[octave];
 
-    if (oldNotaOctava != newNotaOctava) {
-      oldNotaOctava = newNotaOctava;
+    if (oldnoteoctave != newnoteoctave) {
+      oldnoteoctave = newnoteoctave;
       synth.triggerRelease();
-      synth.triggerAttack(newNotaOctava);
+      synth.triggerAttack(newnoteoctave);
     }
 
   } else {
 
     if (oldIsPressed) {
-      oldNotaOctava = "";
+      oldnoteoctave = "";
       ellipseWidth = ellipseWidthMin;
       synth.triggerRelease();
     }

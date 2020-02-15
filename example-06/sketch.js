@@ -1,7 +1,7 @@
 let synth;
-let notas = ["C", "D", "E", "F", "G", "A", "B"];
+let notes = ["C", "D", "E", "F", "G", "A", "B"];
 let colores = [0, 20, 40, 90, 130, 170, 210];
-let octavas = ["2", "3", "4", "5", "6", "7"];
+let octaves = ["2", "3", "4", "5", "6", "7"];
 let tonos = [105, 135, 165, 195, 225, 255];
 let divX;
 let divY;
@@ -16,8 +16,8 @@ function setup() {
   let width = window.innerWidth;
   let height = window.innerHeight;
   canvas = createCanvas(width, height);
-  divX = width / notas.length;
-  divY = height / octavas.length;
+  divX = width / notes.length;
+  divY = height / octaves.length;
   for (i = 0; i < 8; i++) {
     line(0, divY * i, width, divY * i);
     line(divX * i, 0, divX * i, height);
@@ -34,9 +34,9 @@ function draw() {
   
   if (isPressed) {
 
-    let nota = Math.round((mouseX + (divX / 2)) / divX) - 1;
-    let octava = Math.round((mouseY + (divY / 2)) / divY) - 1;
-    fill(colores[nota], 127, tonos[octava]);
+    let note = Math.round((mouseX + (divX / 2)) / divX) - 1;
+    let octave = Math.round((mouseY + (divY / 2)) / divY) - 1;
+    fill(colores[note], 127, tonos[octave]);
 
     if (ellipseWidth < ellipseWidthMax) {
       ellipseWidth++;
@@ -45,7 +45,7 @@ function draw() {
     ellipse(mouseX, mouseY, ellipseWidth, ellipseWidth);
 
     if (!oldIsPressed) {
-      synth.triggerAttack(notas[nota] + octavas[octava]);
+      synth.triggerAttack(notes[note] + octaves[octave]);
     }
 
   } else {
